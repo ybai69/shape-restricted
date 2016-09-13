@@ -18,5 +18,6 @@ Mspline<-function(x,k,t){
     }
     M<-as.matrix(M[-nrow(M),])
   }
+  M[m,x==max(t)]<-k/(t[length(t)]-t[length(t)-k])
   return(M)
 }
