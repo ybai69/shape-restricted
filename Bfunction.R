@@ -7,7 +7,11 @@ Bspline<-function(x,k,t){
   B=matrix(0,nrow=length(t)-kk,ncol=n)
   for(j in 1:(length(t)-kk)){
     i1=x>=t[j]&x<t[j+1]
-   B[j,i1]<-1
+    B[j,i1]<-1
+    if(t[j+1]==max(t)){
+      i1=x>=t[j]&x<=t[j+1]
+      B[j,i1]<-1
+      }
   }
   
   while(kk<k){
@@ -15,7 +19,7 @@ Bspline<-function(x,k,t){
     for(j in 1:(length(t)-kk)){
       i2=x>=t[j]&x<t[j+kk]
       if(t[j+kk-1]-t[j]==0){
-        temp1<-1
+        temp1<-100
       }else{
         temp1<-(x[i2]-t[j])/(t[j+kk-1]-t[j])
       }
@@ -28,7 +32,6 @@ Bspline<-function(x,k,t){
     }
     B<-as.matrix(B[-nrow(B),])
   }
-  B[m,x==max(t)]<-1
   return(B)
 }
 
